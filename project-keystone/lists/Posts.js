@@ -1,4 +1,5 @@
-const { Text, Select, Relationship } = require('@keystonejs/fields')
+const { Text, Select, DateTime } = require('@keystonejs/fields');
+
 
 const postFields = {
     fields: {
@@ -22,6 +23,11 @@ const postFields = {
             type: Text,
             isRequired: true
         },
+        date: {
+            type: DateTime,
+            format: 'MM/dd/yyyy HH:mm',
+            isRequired: true
+        }
     },
 }
 
