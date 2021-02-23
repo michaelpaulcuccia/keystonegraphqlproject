@@ -7,24 +7,20 @@ const { MongooseAdapter: Adapter } = require('@keystonejs/adapter-mongoose');
 const PROJECT_NAME = 'Project Keystone';
 const adapterConfig = { mongoUri: process.env.MONGO_URI, };
 
+//Schema Files
 const PostSchema = require('./lists/Posts');
 const UserSchema = require('./lists/Users');
-
-/**
- * You've got a new KeystoneJS Project! Things you might want to do next:
- * - Add adapter config options (See: https://keystonejs.com/keystonejs/adapter-mongoose/)
- * - Select configure access control and authentication (See: https://keystonejs.com/api/access-control)
- */
 
 const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
   cookieSecret: process.env.COOKIE_SECRET
 });
 
+//Routing
 keystone.createList('Post', PostSchema);
 keystone.createList('User', UserSchema);
 
-//add to line 39
+//add to line 43
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,
   list: 'User',
@@ -36,5 +32,19 @@ const authStrategy = keystone.createAuthStrategy({
 
 module.exports = {
   keystone,
-  apps: [new GraphQLApp(), new AdminUIApp({ name: PROJECT_NAME, enableDefaultRoute: true, authStrategy })],
+  apps: [new GraphQLApp(),
+  new AdminUIApp({
+    name: PROJECT_NAME,
+    enableDefaultRoute: true,
+    authStrategy
+
+    //for admin access only
+    /*
+    isAccessAllowed: ({ authentication: { item: user } }) => {
+      return !!user && !!user.isAdmin
+    }
+    */
+
+  })
+  ],
 };
