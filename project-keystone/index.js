@@ -8,7 +8,7 @@ const PROJECT_NAME = 'Project Keystone';
 const adapterConfig = { mongoUri: process.env.MONGO_URI, };
 
 //Schema Files
-const PostSchema = require('./lists/Posts');
+const SweaterSchema = require('./lists/Sweaters');
 const UserSchema = require('./lists/Users');
 
 const keystone = new Keystone({
@@ -17,7 +17,7 @@ const keystone = new Keystone({
 });
 
 //Routing
-keystone.createList('Post', PostSchema);
+keystone.createList('Sweater', SweaterSchema);
 keystone.createList('User', UserSchema);
 
 //add to line 43
