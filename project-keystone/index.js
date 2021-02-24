@@ -14,6 +14,8 @@ const UserSchema = require('./lists/Users');
 const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
   cookieSecret: process.env.COOKIE_SECRET || 'chocolatechip',
+  //needed to be added for successful deployment
+  //https://github.com/keystonejs/keystone/issues/2042
   secureCookies: false
 });
 
@@ -21,7 +23,7 @@ const keystone = new Keystone({
 keystone.createList('Sweater', SweaterSchema);
 keystone.createList('User', UserSchema);
 
-//add to line 43
+//add to line 42
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,
   list: 'User',
@@ -30,8 +32,6 @@ const authStrategy = keystone.createAuthStrategy({
     secretField: 'password'
   }
 })
-
-//const createContainer = document.querySelector('.css-1mxnah0-Title').setAttribute('font-size', '32px');
 
 module.exports = {
   keystone,
@@ -42,4 +42,9 @@ module.exports = {
     authStrategy
   })
   ],
+  //needed to be added for successful deployment
+  //https://github.com/keystonejs/keystone/issues/2042
+  configureExpress: app => {
+    app.set('trust proxy', 1)
+  }
 };
