@@ -30,6 +30,8 @@ const authStrategy = keystone.createAuthStrategy({
   }
 })
 
+//const createContainer = document.querySelector('.css-1mxnah0-Title').setAttribute('font-size', '32px');
+
 module.exports = {
   keystone,
   apps: [new GraphQLApp(),
@@ -37,14 +39,6 @@ module.exports = {
     name: PROJECT_NAME,
     enableDefaultRoute: true,
     authStrategy
-
-    //for admin access only
-    /*
-    isAccessAllowed: ({ authentication: { item: user } }) => {
-      return !!user && !!user.isAdmin
-    }
-    */
-
   })
   ],
 };
