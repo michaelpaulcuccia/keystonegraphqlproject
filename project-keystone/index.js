@@ -13,7 +13,8 @@ const UserSchema = require('./lists/Users');
 
 const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
-  cookieSecret: process.env.COOKIE_SECRET || 'chocolatechip'
+  cookieSecret: process.env.COOKIE_SECRET || 'chocolatechip',
+  secureCookies: false
 });
 
 //Routing
